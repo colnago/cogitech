@@ -1,0 +1,41 @@
+version: '3'
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - "8090:80"
+    networks:
+      - internal
+    volumes:
+      - ./:/var/www/app
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    volumes:
+      - ./:/var/www/app
+    networks:
+      - internal
+  mysql-db:
+    container_name: mysql-db
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: cogitech
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 12345678
+    ports:
+      - '3308:3306'
+    volumes:
+      - ./var/mysql:/var/lib/mysql
+    networks:
+      - internal
+
+networks:
+  internal:

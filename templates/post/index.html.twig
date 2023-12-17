@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+    <div class="table-responsive">
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th style="width: 10%;">PostId</th>
+                <th style="width: 30%;">Title</th>
+                <th style="width: 30%;">Body</th>
+                <th style="width: 20%;">Author</th>
+                <th style="width: 10%;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+                <tr>
+                    <th scope="row" class="text-start">{{ post.id }}</th>
+                    <th scope="row" class="text-start">{{ post.title }}</th>
+                    <th scope="row" class="text-start">{{ post.body }}</th>
+                    <th scope="row" class="text-start">{{ post.userId.name }}</th>
+                    <th scope="row" class="text-start"><a href="/posts/delete/{{ post.id }}">Delete</a></th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}
